@@ -1173,6 +1173,13 @@ write_buildinfo() {
 	printf "installed = %s\n" "${pkglist[@]}"
 }
 
+# easyops-only
+# todo: the version.ini renders same package content with different package time a distinct package
+write_version_ini() {
+    printf "%s\n" "$(date +%Y-%m-%dT%H:%M:%S)"
+    printf "%s\n" "$_easyopsver"
+}
+
 create_package() {
 	(( NOARCHIVE )) && return
 
@@ -1186,10 +1193,11 @@ create_package() {
 	msg "$(gettext "Creating package \"%s\"...")" "$pkgname"
 
 	pkgarch=$(get_pkg_arch)
+	write_version_init > version.ini
 	write_pkginfo > .PKGINFO
 	write_buildinfo > .BUILDINFO
 
-	local comp_files=('.PKGINFO' '.BUILDINFO')
+	local comp_files=('version.ini' '.PKGINFO' '.BUILDINFO')
 
 	# check for changelog/install files
 	for i in 'changelog/.CHANGELOG' 'install/.INSTALL'; do
