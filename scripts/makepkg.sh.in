@@ -1194,10 +1194,8 @@ create_package() {
 
 	pkgarch=$(get_pkg_arch)
 	write_version_init > version.ini
-	write_pkginfo > .PKGINFO
-	write_buildinfo > .BUILDINFO
 
-	local comp_files=('version.ini' '.PKGINFO' '.BUILDINFO')
+	local comp_files=('version.ini')
 
 	# check for changelog/install files
 	for i in 'changelog/.CHANGELOG' 'install/.INSTALL'; do
